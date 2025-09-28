@@ -974,7 +974,10 @@
                     <h2 class="section-title gradient-text">Liên Hệ Với Tôi</h2>
                     <div class="contact-content">
                         <div class="contact-form">
-                            <form>
+                            <form name="contact" method="POST" data-netlify="true" netlify>
+                                <!-- Bắt buộc để Netlify nhận đúng form -->
+                                <input type="hidden" name="form-name" value="contact">
+
                                 <div class="form-group">
                                     <label for="name">Họ và Tên *</label>
                                     <input type="text" id="name" name="name" required>
@@ -1016,7 +1019,6 @@
                                         <option value="above-50m">Trên 50 triệu</option>
                                     </select>
                                 </div>
-
 
                                 <div class="form-group">
                                     <label for="message">Mô Tả Dự Án *</label>
