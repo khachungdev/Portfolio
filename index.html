@@ -1029,6 +1029,41 @@
                                 <button type="submit" class="submit-btn">Gửi Yêu Cầu</button>
                             </form>
                         </div>
+                        <script>
+                            document.querySelector('form[name="contact"]').addEventListener('submit', async function (e) {
+                                e.preventDefault();
+
+                                const formData = new FormData(this);
+                                const data = {
+                                    name: formData.get('name'),
+                                    email: formData.get('email'),
+                                    phone: formData.get('phone'),
+                                    service: formData.get('service'),
+                                    budget: formData.get('budget'),
+                                    message: formData.get('message'),
+                                };
+
+                                const scriptURL = 'https://script.google.com/macros/s/AKfycbx-4BGJke6d7OIS1LV5CfRESZS5GjQ3sWfI9UhGsReeOQkEken_CASueqkW5SbfNnMK/exec';
+                                const resultDiv = document.createElement('div');
+                                resultDiv.textContent = '⏳ Đang gửi...';
+                                document.querySelector('.contact-form').appendChild(resultDiv);
+
+                                try {
+                                    const response = await fetch(scriptURL, {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify(data)
+                                    });
+
+                                    const result = await response.json();
+                                    resultDiv.textContent = result.message || '✅ Gửi thành công!';
+                                    this.reset();
+                                } catch (error) {
+                                    resultDiv.textContent = '❌ Có lỗi xảy ra, vui lòng thử lại!';
+                                    console.error(error);
+                                }
+                            });
+                        </script>
 
                         <div class="contact-info">
                             <h3 style="margin-bottom: 1.5rem; color: #333;">Thông Tin Liên Hệ</h3>
@@ -1139,27 +1174,27 @@
         });
 
         // Form submission handling
-        document.querySelector('form').addEventListener('submit', function (e) {
-            e.preventDefault();
+        // document.querySelector('form').addEventListener('submit', function (e) {
+        //     e.preventDefault();
 
-            // Get form data
-            const formData = new FormData(this);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const message = formData.get('message');
+        //     // Get form data
+        //     const formData = new FormData(this);
+        //     const name = formData.get('name');
+        //     const email = formData.get('email');
+        //     const message = formData.get('message');
 
-            // Simple validation
-            if (!name || !email || !message) {
-                alert('Vui lòng điền đầy đủ thông tin bắt buộc!');
-                return;
-            }
+        //     // Simple validation
+        //     if (!name || !email || !message) {
+        //         alert('Vui lòng điền đầy đủ thông tin bắt buộc!');
+        //         return;
+        //     }
 
-            // Show success message
-            alert('Cảm ơn bạn đã liên hệ! Tôi sẽ phản hồi trong vòng 24 giờ.');
+        //     // Show success message
+        //     alert('Cảm ơn bạn đã liên hệ! Tôi sẽ phản hồi trong vòng 24 giờ.');
 
-            // Reset form
-            this.reset();
-        });
+        //     // Reset form
+        //     this.reset();
+        // });
 
         // Add animation on scroll
         const observerOptions = {
