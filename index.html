@@ -2,23 +2,44 @@
 <html lang="vi">
 
 <head>
+    <!-- ====== CƠ BẢN ====== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thiết Kế Website Chuyên Nghiệp | Henix</title>
     <meta name="description"
-        content="Thiết kế website tùy chỉnh, responsive, tối ưu SEO cơ bản, UI/UX và tích hợp E‑commerce. Tôi giúp bạn có một website ấn tượng và hiệu quả.">
+        content="Thiết kế website tùy chỉnh, responsive, tối ưu SEO cơ bản, UI/UX và tích hợp E-commerce. Tôi giúp bạn có một website ấn tượng và hiệu quả.">
     <meta name="author" content="Khac Hung Dev">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#00ff5e">
 
-    <meta property="og:title" content="Portfolio | Thiết kế & Phát triển Website">
-    <meta property="og:description"
-        content="Thiết kế website tùy chỉnh, responsive, tối ưu SEO cơ bản, UI/UX và tích hợp E‑commerce.">
+    <!-- ====== FAVICON ====== -->
+    <link rel="icon" href="https://henix.netlify.app/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="https://henix.netlify.app/favicon.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="https://henix.netlify.app/favicon.png">
+
+    <!-- ====== OPEN GRAPH (FACEBOOK / ZALO / TELEGRAM / MESSENGER) ====== -->
+    <meta property="og:site_name" content="Henix">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://your-domain.example">
-    <meta property="og:image"
-        content="https://images.unsplash.com/photo-1529336953121-ad5a0d43d0d7?q=80&w=1200&auto=format&fit=crop">
-    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-    <link rel="icon" href="./h.png" type="image/png">
+    <meta property="og:url" content="https://henix.netlify.app/">
+    <meta property="og:title" content="Henix | Thiết kế & Phát triển Website">
+    <meta property="og:description"
+        content="Thiết kế website tùy chỉnh, responsive, tối ưu SEO cơ bản, UI/UX và tích hợp E-commerce.">
+    <meta property="og:image" content="https://henix.netlify.app/image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="vi_VN">
+
+    <!-- ====== TWITTER CARD ====== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Henix | Thiết kế & Phát triển Website">
+    <meta name="twitter:description"
+        content="Thiết kế website tùy chỉnh, responsive, tối ưu SEO cơ bản, UI/UX và tích hợp E-commerce.">
+    <meta name="twitter:image" content="https://henix.netlify.app/image.jpg">
+    <meta name="twitter:creator" content="@KhacHungDev">
+
+    <!-- ====== FONT AWESOME ====== -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
     <style>
         :root {
             --primary-color: #93F9B9;
@@ -1043,6 +1064,9 @@
                                     message: formData.get('message'),
                                 };
 
+                                // Chuyển data thành URLSearchParams (tránh preflight)
+                                const params = new URLSearchParams(data);
+
                                 const scriptURL = 'https://script.google.com/macros/s/AKfycbx-4BGJke6d7OIS1LV5CfRESZS5GjQ3sWfI9UhGsReeOQkEken_CASueqkW5SbfNnMK/exec';
                                 const resultDiv = document.createElement('div');
                                 resultDiv.textContent = '⏳ Đang gửi...';
@@ -1051,19 +1075,22 @@
                                 try {
                                     const response = await fetch(scriptURL, {
                                         method: 'POST',
-                                        headers: { 'Content-Type': 'application/json' },
-                                        body: JSON.stringify(data)
+                                        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+                                        body: params
                                     });
 
-                                    const result = await response.json();
-                                    resultDiv.textContent = result.message || '✅ Gửi thành công!';
+                                    const text = await response.text();
+                                    console.log('Response:', text);
+
+                                    resultDiv.textContent = '✅ Gửi thành công!';
                                     this.reset();
                                 } catch (error) {
-                                    resultDiv.textContent = '❌ Có lỗi xảy ra, vui lòng thử lại!';
+                                    resultDiv.textContent = 'Có lỗi xảy ra, vui lòng liên hệ trực tiếp qua các phương thức khác ở mục "Thông tin liên hệ" để được hỗ trợ!';
                                     console.error(error);
                                 }
                             });
                         </script>
+
 
                         <div class="contact-info">
                             <h3 style="margin-bottom: 1.5rem; color: #333;">Thông Tin Liên Hệ</h3>
